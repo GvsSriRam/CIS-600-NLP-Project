@@ -11,6 +11,7 @@ PROJECT_ROOT_DIR = str(Path(__file__).parent.parent.parent)
 ic = IntentRecognition()
 ac = Autocorrect()
 rg = ResponseGeneration()
+ic.train()
 
 class ModelConnector:
     """Connects model operations to endppoint-router"""

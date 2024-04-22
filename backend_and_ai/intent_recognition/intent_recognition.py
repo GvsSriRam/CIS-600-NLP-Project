@@ -19,8 +19,8 @@ class IntentRecognition:
         self.lr = 1e-2
         self.model_location = "models/intent_classification"
         self.model = None
-        self.train_data_path = "../data/train.csv"
-        self.test_data_path = "../data/test.csv"
+        self.train_data_path = "datasets/train.csv"
+        self.test_data_path = "datasets/test.csv"
 
     def train(self):
         df_train = pd.read_csv(self.train_data_path)
