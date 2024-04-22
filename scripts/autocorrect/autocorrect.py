@@ -25,10 +25,11 @@ from nltk.tokenize import word_tokenize
 
 class Autocorrect:
     def __init__(self) -> None:
-        self.models = [TextblobMethod(), SpacyContextualSpellCheckMethod()]
+        # self.models = [TextblobMethod(), SpacyContextualSpellCheckMethod()]
+        self.model = TextblobMethod()
 
     def __call__(self, input_str: str):
-        res = [model(input_str) for model in self.models]
+        res = self.model(input_str)
         return res
 
 class EditDistanceMethod:
@@ -67,7 +68,7 @@ class EditDistanceMethod:
 
 class SpacyContextualSpellCheckMethod:
     def __init__(self) -> None:
-        df = pd.read_csv("../../data/train.csv")
+        df = pd.read_csv("../data/train.csv")
         first_column_list = df["text"].to_list()
         # temp = []
         # for row in first_column_list:
@@ -114,7 +115,7 @@ class SparkNLPMethod:
         self.train()
     
     def train(self):
-        df = self.spark.read.csv("../../data/train.csv", header=True)
+        df = self.spark.read.csv("../data/train.csv", header=True)
         first_column_list = df.select(F.collect_list(df.columns[0])).first()[0]
         corpus = ' '.join(first_column_list)
         corpus_df = self.spark.createDataFrame([(corpus,)], ["text"])
@@ -133,13 +134,13 @@ class SparkNLPMethod:
 
 class TextblobMethod:
     def __init__(self):
-        df = pd.read_csv("../../data/train.csv")
+        df = pd.read_csv("../data/train.csv")
         text = " ".join(df["text"])
-        tokens = word_tokenize(text)
+        tokens = word_tokenize(text.lower())
         self.vocab = set(tokens)
     
     def __call__(self, input_str: str):
-        blob = TextBlob(input_str)
+        blob = TextBlob(input_str.lower())
         corrected_words = []
         for word in blob.words:
             suggestions = word.spellcheck()

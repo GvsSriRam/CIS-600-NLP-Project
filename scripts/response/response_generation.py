@@ -1,6 +1,6 @@
 import random
 
-from intent_responses import intent_responses_1, intent_responses_2
+from response.intent_responses import intent_responses_1, intent_responses_2
 
 class ResponseGeneration:
     def __init__(self):
