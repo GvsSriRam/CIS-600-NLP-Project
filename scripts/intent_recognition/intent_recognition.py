@@ -19,10 +19,12 @@ class IntentRecognition:
         self.lr = 1e-2
         self.model_location = "models/intent_classification"
         self.model = None
+        self.train_data_path = "../data/train.csv"
+        self.test_data_path = "../data/test.csv"
 
     def train(self):
-        df_train = pd.read_csv("../../data/train.csv")
-        df_test = pd.read_csv("../../data/test.csv")
+        df_train = pd.read_csv(self.train_data_path)
+        df_test = pd.read_csv(self.test_data_path)
 
         df_train = df_train.sample(frac = 1)
         train_data = df_train['text'].to_numpy()
@@ -119,7 +121,7 @@ class IntentRecognition:
             category = self.df_ref[self.df_ref["category_codes"] == target_code]["category"].values[0]
             predicted_categories.append(category)
 
-        return predicted_categories
+        return predicted_categories[0]
 
 
 # input_str = "I am still waiting for my card, when will it arrive?"
