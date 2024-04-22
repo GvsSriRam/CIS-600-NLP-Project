@@ -35,7 +35,7 @@ class Autocorrect:
 class EditDistanceMethod:
     def __init__(self) -> None:
         words = []
-        with open('../data/autocorrect/book.txt', 'r') as f:
+        with open('datasets/autocorrect/book.txt', 'r') as f:
             file_name_data = f.read()
             file_name_data=file_name_data.lower()
             words = re.findall('\w+',file_name_data)
@@ -68,7 +68,7 @@ class EditDistanceMethod:
 
 class SpacyContextualSpellCheckMethod:
     def __init__(self) -> None:
-        df = pd.read_csv("../data/train.csv")
+        df = pd.read_csv("datasets/train.csv")
         first_column_list = df["text"].to_list()
         # temp = []
         # for row in first_column_list:
@@ -115,7 +115,7 @@ class SparkNLPMethod:
         self.train()
     
     def train(self):
-        df = self.spark.read.csv("../data/train.csv", header=True)
+        df = self.spark.read.csv("datasets/train.csv", header=True)
         first_column_list = df.select(F.collect_list(df.columns[0])).first()[0]
         corpus = ' '.join(first_column_list)
         corpus_df = self.spark.createDataFrame([(corpus,)], ["text"])
@@ -134,7 +134,7 @@ class SparkNLPMethod:
 
 class TextblobMethod:
     def __init__(self):
-        df = pd.read_csv("../data/train.csv")
+        df = pd.read_csv("datasets/train.csv")
         text = " ".join(df["text"])
         tokens = word_tokenize(text.lower())
         self.vocab = set(tokens)
