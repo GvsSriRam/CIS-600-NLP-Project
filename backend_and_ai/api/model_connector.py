@@ -4,7 +4,7 @@ from log import logger
 from intent_recognition.intent_recognition import IntentRecognition
 from autocorrect.autocorrect import Autocorrect
 from response.response_generation import ResponseGeneration
-
+from datetime import datetime
 
 PROJECT_ROOT_DIR = str(Path(__file__).parent.parent.parent)
 
@@ -29,12 +29,15 @@ class ModelConnector:
         return error
     
     def q_a(self, input_str):
+        currentDateAndTime = datetime.now()
+        currentTime = currentDateAndTime.strftime("%H:%M")
         res = {
             "input_str": input_str,
             "autocorrect": True,
             "corrected_str": None,
             "intent": None,
-            "response": None
+            "response": None,
+            "timestamp": currentTime
         }
         error = ""
 
