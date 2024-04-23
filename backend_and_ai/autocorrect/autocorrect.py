@@ -4,19 +4,19 @@ import textdistance
 import re
 from collections import Counter
 import spacy
-import contextualSpellCheck
-import sparknlp
-from sparknlp.base import DocumentAssembler
-from sparknlp.annotator import (
-    Tokenizer,
-    ContextSpellCheckerModel,
-    ContextSpellCheckerApproach
-)
-from pyspark.ml import Pipeline
-import pyspark.sql.functions as F
-from sparknlp.base import LightPipeline
+# import contextualSpellCheck
+# import sparknlp
+# from sparknlp.base import DocumentAssembler
+# from sparknlp.annotator import (
+#     Tokenizer,
+#     ContextSpellCheckerModel,
+#     ContextSpellCheckerApproach
+# )
+# from pyspark.ml import Pipeline
+# import pyspark.sql.functions as F
+# from sparknlp.base import LightPipeline
 
-import contextualSpellCheck.data
+# import contextualSpellCheck.data
 
 from textblob import TextBlob
 import nltk
@@ -66,71 +66,71 @@ class EditDistanceMethod:
             output = df.sort_values(['Similarity', 'Prob'], ascending=False).head()
             return output
 
-class SpacyContextualSpellCheckMethod:
-    def __init__(self) -> None:
-        df = pd.read_csv("datasets/train.csv")
-        first_column_list = df["text"].to_list()
+# class SpacyContextualSpellCheckMethod:
+#     def __init__(self) -> None:
+#         df = pd.read_csv("datasets/train.csv")
+#         first_column_list = df["text"].to_list()
         # temp = []
         # for row in first_column_list:
         #     temp.extend(row.split())
         
-        from spacy.vocab import Vocab
-        vocab = Vocab(strings=["card"])
-        self.nlp = spacy.load('en_core_web_sm', vocab=vocab)
-        contextualSpellCheck.add_to_pipe(self.nlp)
+        # from spacy.vocab import Vocab
+        # vocab = Vocab(strings=["card"])
+        # self.nlp = spacy.load('en_core_web_sm', vocab=vocab)
+        # contextualSpellCheck.add_to_pipe(self.nlp)
 
     def __call__(self, input_str: str):
         doc = self.nlp(input_str)
         return doc._.outcome_spellCheck
         # return doc._.performed_spellCheck, doc._.suggestions_spellCheck, doc._.score_spellCheck, doc._.outcome_spellCheck
 
-class SparkNLPMethod:
-    def __init__(self) -> None:
+# class SparkNLPMethod:
+#     def __init__(self) -> None:
 
-        # Start spark session
-        self.spark = sparknlp.start()
+#         # Start spark session
+#         self.spark = sparknlp.start()
 
-        documentAssembler = (
-            DocumentAssembler()
-            .setInputCol("text")
-            .setOutputCol("document")
-        )
+#         documentAssembler = (
+#             DocumentAssembler()
+#             .setInputCol("text")
+#             .setOutputCol("document")
+#         )
         
-        tokenizer = Tokenizer().setInputCols(["document"]).setOutputCol("token")
+#         tokenizer = Tokenizer().setInputCols(["document"]).setOutputCol("token")
 
-        spellChecker = (
-            ContextSpellCheckerApproach()
-            .setInputCols("token")
-            .setOutputCol("checked")
-            .setBatchSize(8)
-            .setEpochs(1)
-            .setWordMaxDistance(3) # Maximum edit distance to consider
-            .setMaxWindowLen(3) # important to find context
-            .setMinCount(3.0) # Removes words that appear less frequent than that
-            .setLanguageModelClasses(1650) # Value that we have a TF graph available
-        )
+#         spellChecker = (
+#             ContextSpellCheckerApproach()
+#             .setInputCols("token")
+#             .setOutputCol("checked")
+#             .setBatchSize(8)
+#             .setEpochs(1)
+#             .setWordMaxDistance(3) # Maximum edit distance to consider
+#             .setMaxWindowLen(3) # important to find context
+#             .setMinCount(3.0) # Removes words that appear less frequent than that
+#             .setLanguageModelClasses(1650) # Value that we have a TF graph available
+#         )
 
-        self.pipeline = Pipeline(stages=[documentAssembler, tokenizer, spellChecker])
+#         self.pipeline = Pipeline(stages=[documentAssembler, tokenizer, spellChecker])
 
-        self.train()
+#         self.train()
     
-    def train(self):
-        df = self.spark.read.csv("datasets/train.csv", header=True)
-        first_column_list = df.select(F.collect_list(df.columns[0])).first()[0]
-        corpus = ' '.join(first_column_list)
-        corpus_df = self.spark.createDataFrame([(corpus,)], ["text"])
-        self.model = self.pipeline.fit(corpus_df)
-        self.lp = LightPipeline(self.model)
+#     def train(self):
+#         df = self.spark.read.csv("datasets/train.csv", header=True)
+#         first_column_list = df.select(F.collect_list(df.columns[0])).first()[0]
+#         corpus = ' '.join(first_column_list)
+#         corpus_df = self.spark.createDataFrame([(corpus,)], ["text"])
+#         self.model = self.pipeline.fit(corpus_df)
+#         self.lp = LightPipeline(self.model)
 
-    def __call__(self, input_str: str):
-        res = []
-        result = self.lp.annotate(input_str)
-        for token, checked in zip(result["token"], result["checked"]):
-            res.append(checked)
+#     def __call__(self, input_str: str):
+#         res = []
+#         result = self.lp.annotate(input_str)
+#         for token, checked in zip(result["token"], result["checked"]):
+#             res.append(checked)
 
-        res = " ".join(res)
+#         res = " ".join(res)
 
-        return res
+#         return res
 
 class TextblobMethod:
     def __init__(self):
