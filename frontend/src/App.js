@@ -11,9 +11,36 @@ import voiceIcon from "./assets/icons/voice.svg";
 import addImageIcon from "./assets/icons/add-img.svg";
 import MenuItem from "./components/menu-item/MenuItem.jsx";
 import ChatScreenBody from "./components/chat-screen-body/ChatScreenBody.jsx";
+import { useEffect } from "react";
 
 const App = () => {
   const [isFocused, setIsFocused] = useState(false);
+  // Add state for input and chat log
+  const [input, setInput] = useState("");
+  const [chatLog, setChatLog] = useState([]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // fetch response to the api combining the chatlog array of messages and sending it as a message to http://0.0.0.0:8000/nlp/chat as a post request
+    const response = await fetch("http://localhost:8000/nlp/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        input,
+      }),
+    });
+    const reply = await response.json();
+    // console.log(reply);
+    setInput("");
+    setChatLog([...chatLog, { question: input, answer: reply }]);
+  };
+  // useEffect(() => {
+  //   console.log(chatLog);
+  // }, [chatLog]);
+
   return (
     <div className="main-container">
       <div className="side-nav">
@@ -62,20 +89,26 @@ const App = () => {
         <div className="main-body">
           <h2 className="main-body-heading">Credit Card Management Chatbot</h2>
           <div className="chat-screen-container">
-            <ChatScreenBody source={defaultImg} />
+            <ChatScreenBody chatLog={chatLog} source={defaultImg} />
           </div>
-          <div className={`input-box-container ${isFocused ? "focused" : ""}`}>
-            <img className="voice-icon" src={addImageIcon} alt="logo" />
-            <input
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
-              className="text-input"
-              placeholder="Start typing here..."
-              type="text"
-              accept=".txt"
-            />
-            <img className="voice-icon" src={voiceIcon} alt="logo" />
-          </div>
+          <form onSubmit={handleSubmit}>
+            <div
+              className={`input-box-container ${isFocused ? "focused" : ""}`}
+            >
+              <img className="voice-icon" src={addImageIcon} alt="logo" />
+              <input
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                className="text-input"
+                placeholder="Start typing here..."
+                type="text"
+                accept=".txt"
+              />
+              <img className="voice-icon" src={voiceIcon} alt="logo" />
+            </div>
+          </form>
         </div>
       </div>
     </div>
