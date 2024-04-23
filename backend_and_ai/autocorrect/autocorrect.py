@@ -29,8 +29,7 @@ class Autocorrect:
         self.model = TextblobMethod()
 
     def __call__(self, input_str: str):
-        res = self.model(input_str)
-        return res
+        return self.model(input_str)
 
 class EditDistanceMethod:
     def __init__(self) -> None:
@@ -152,7 +151,11 @@ class TextblobMethod:
             else:
             # If no suggestion from vocab, use TextBlob's first suggestion
                 corrected_words.append(suggestions[0][0])
-        return " ".join(corrected_words)
+        corrected_str = " ".join(corrected_words)
+        mod_inp = " ".join(blob.words)
+        print(mod_inp, corrected_str)
+        changed = corrected_str != mod_inp
+        return corrected_str, changed
 
 # input_str = "I lost my crd"
 # # ac = SparkNLPMethod()

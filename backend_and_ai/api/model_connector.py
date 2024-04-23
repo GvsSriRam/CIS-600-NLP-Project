@@ -42,12 +42,10 @@ class ModelConnector:
         error = ""
 
         try:
-            corrected_str = ac(input_str)
-            print(corrected_str)
-            if corrected_str == input_str:
-                res["autocorrect"] = False
+            corrected_str, res["autocorrect"] = ac(input_str)
             
-            res["corrected_str"] = corrected_str
+            if res["autocorrect"]:
+                res["corrected_str"] = corrected_str
             predicted_intent = ic.predict(corrected_str)
             res["intent"] = predicted_intent
 
