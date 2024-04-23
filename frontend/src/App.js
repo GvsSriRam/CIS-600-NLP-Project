@@ -11,7 +11,6 @@ import voiceIcon from "./assets/icons/voice.svg";
 import addImageIcon from "./assets/icons/add-img.svg";
 import MenuItem from "./components/menu-item/MenuItem.jsx";
 import ChatScreenBody from "./components/chat-screen-body/ChatScreenBody.jsx";
-import { useEffect } from "react";
 
 const App = () => {
   const [isFocused, setIsFocused] = useState(false);
@@ -33,13 +32,9 @@ const App = () => {
       }),
     });
     const reply = await response.json();
-    // console.log(reply);
-    setInput("");
     setChatLog([...chatLog, { question: input, answer: reply }]);
+    setInput("");
   };
-  // useEffect(() => {
-  //   console.log(chatLog);
-  // }, [chatLog]);
 
   return (
     <div className="main-container">
