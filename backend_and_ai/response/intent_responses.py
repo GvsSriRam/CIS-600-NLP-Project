@@ -1,3 +1,5 @@
+"""Module to store responses for intents."""
+
 intent_responses_1={
     "activate_my_card": "To activate your card, login to internet banking, go to my cards and activate my card or visit any nearby ATM.",
     "apple_pay_or_google_pay": "As of now, our card supports Apple Pay and Google Pay virtual wallets in United States for USD transactions.",
@@ -77,6 +79,7 @@ intent_responses_1={
     "verify_my_identity": "Verifying your identity is essential for account security and compliance. Please follow the instructions in our app to submit the required documents.",
     "country_support": "Our services are available in multiple countries. For a list of supported countries, visit the 'Global Access' section in our app."
 }
+
 intent_responses_2 = {
     "card_arrival": "Your card should arrive within 7-10 business days. You can track its status in the 'Cards' section of our app. If your card hasn't arrived after 10 days, please contact our customer support directly through the app.",
     "card_linking": "To link your card, enter the card details in the 'Link Card' section under 'My Cards' tab.",
