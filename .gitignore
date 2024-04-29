@@ -1,2 +1,4 @@
 *.DS_Store
 *.pyc
+nlp_project_env/
+logs/

@@ -1,0 +1,37 @@
+.chat-query{
+    box-sizing: border-box;
+    background-color: #161616;
+    margin: 20px;
+    color: white;
+    font-size: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    .chat-question-container{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: #2B2B2B;
+        padding: 20px;
+        // margin: 30px;
+        border-radius: 20px;
+        .chat-profile-pic{
+            border-radius:50%;
+            width: 42px;
+            margin-right: 12px;
+        }
+    }
+    .chat-answer{
+        padding-top:20px;
+    }
+}
+.chat-query-time{
+    font-size: 16px;
+    color: #6E6E6E;
+    padding: 10px;
+    // padding-bottom: 10px;
+    text-align: right;
+}
+
+.chat-corrected-question{
+    color: #585858;
+}
