@@ -1,10 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./ChatQuery.scss";
-
 const ChatQuery = ({ chat, source }) => {
-  useEffect(() => {
-    console.log("here", chat);
-  }, [chat]);
   return (
     <div className="chat-query-container">
       <div className="chat-query">
@@ -14,7 +10,7 @@ const ChatQuery = ({ chat, source }) => {
             <p className="chat-question">{chat.question}</p>
             {chat.answer && chat.answer.result.autocorrect && (
               <p className="chat-corrected-question">
-                {chat.answer.result.corrected_str}
+                Showing results for: "{chat.answer.result.corrected_str}"
               </p>
             )}
           </div>
@@ -22,9 +18,8 @@ const ChatQuery = ({ chat, source }) => {
         <div className="chat-answer">
           <p>{chat.answer.result.response}</p>
         </div>
-        <p className="chat-query-time">now</p>
+        <p className="chat-query-time">{chat.answer.result.timestamp}</p>
       </div>
-      {/* <p className="chat-query-time">now</p> */}
     </div>
   );
 };

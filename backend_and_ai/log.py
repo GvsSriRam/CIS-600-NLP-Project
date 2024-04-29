@@ -1,10 +1,11 @@
+"""Module for generating application logs."""
 import logging
 import time
 
 from pathlib import Path
 
 try:
-    log_dir = Path(__file__).parent.parent.parent / "logs"
+    log_dir = Path(__file__).parent.parent / "logs"
     log_dir.mkdir(parents=True, exist_ok=True)
 except Exception as e:
     logging.error(str(e))
