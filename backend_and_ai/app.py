@@ -1,3 +1,4 @@
+"""Main APP file"""
 import os
 import uvicorn
 
@@ -5,8 +6,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 import api.endpoint_router as endpoint_router
-
-# Contains End_Points that exposes End-Points.
 
 app = FastAPI(debug=True)
 
@@ -20,14 +19,12 @@ app.add_middleware(
     allow_headers=[],
 )
 
-
 app.include_router(
     endpoint_router.router,
     prefix="/nlp",
     tags=["nlp-project"],
     responses={404: {"description": "Not found"}},
 )
-
 
 if __name__ == "__main__":
     PORT = "8000"
