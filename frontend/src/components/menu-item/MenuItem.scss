@@ -1,0 +1,26 @@
+.menu-item-container {
+  color: white;
+  /* font-weight: bold; */
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  /* margin-top: 4px; */
+  border-radius: 10px;
+  text-transform: titlecase;
+  cursor: pointer;
+
+  .menu-item-icon {
+    width: 18px;
+    color: white;
+    margin-right: 10px;
+    /* padding-right: 8px; */
+  }
+  &:hover {
+    background-color: #1d1d1d57;
+  }
+}
+
+.selected {
+  background-color: #1d1d1d;
+  font-weight: bold;
+}
