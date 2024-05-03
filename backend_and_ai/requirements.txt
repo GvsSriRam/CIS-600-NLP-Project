@@ -20,6 +20,7 @@ fsspec==2024.3.1
 gast==0.5.4
 google-pasta==0.2.0
 grpcio==1.62.2
+gTTS==2.5.1
 h11==0.14.0
 h5py==3.11.0
 huggingface-hub==0.22.2
@@ -50,6 +51,7 @@ pandas==2.2.2
 preshed==3.0.9
 protobuf==4.25.3
 py4j==0.10.9.7
+PyAudio==0.2.14
 pydantic==2.7.1
 pydantic_core==2.18.2
 Pygments==2.17.2
@@ -68,6 +70,7 @@ spacy==3.7.4
 spacy-legacy==3.0.12
 spacy-loggers==1.0.5
 spark-nlp==5.3.3
+SpeechRecognition==3.10.3
 srsly==2.4.8
 starlette==0.27.0
 sympy==1.12

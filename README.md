@@ -29,6 +29,8 @@ $ source nlp_env_project/bin/activate
 $ pip install --upgrade pip
 $ pip install -r requirements.txt
 $ python -m spacy download en_core_web_sm
+$ brew install portaudio
+$ brew install flac
 ```
 
 ## Start the API
