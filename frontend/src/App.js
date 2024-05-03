@@ -11,11 +11,14 @@ import voiceIcon from "./assets/icons/voice.svg";
 import addImageIcon from "./assets/icons/add-img.svg";
 import MenuItem from "./components/menu-item/MenuItem.jsx";
 import ChatScreenBody from "./components/chat-screen-body/ChatScreenBody.jsx";
+import { useEffect } from "react";
 
 const App = () => {
+  // State for tracking if the app is focused
   const [isFocused, setIsFocused] = useState(false);
-  // Add state for input and chat log
+  // State for tracking the user's input
   const [input, setInput] = useState("");
+  // State for tracking the chat log
   const [chatLog, setChatLog] = useState([]);
 
   const handleSubmit = async (e) => {
@@ -35,6 +38,9 @@ const App = () => {
     setChatLog([...chatLog, { question: input, answer: reply }]);
     setInput("");
   };
+  useEffect(() => {
+    console.log(chatLog);
+  });
 
   return (
     <div className="main-container">
