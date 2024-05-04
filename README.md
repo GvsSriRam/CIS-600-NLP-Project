@@ -1,6 +1,8 @@
 # CIS-600-NLP-Project
 # CRED: A Chatbot for Credit Card Management
 
+__[Github Repo](https://github.com/GvsSriRam/CIS-600-NLP-Project)__ - https://github.com/GvsSriRam/CIS-600-NLP-Project
+
 ## React Frontend
 
 ### Prerequisite:
