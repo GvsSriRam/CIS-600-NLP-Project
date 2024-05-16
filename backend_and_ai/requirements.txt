@@ -93,5 +93,5 @@ urllib3==2.2.1
 uvicorn==0.20.0
 wasabi==1.1.2
 weasel==0.3.4
-Werkzeug==3.0.2
+Werkzeug==3.0.3
 wrapt==1.16.0
