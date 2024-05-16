@@ -72,7 +72,7 @@ spacy-loggers==1.0.5
 spark-nlp==5.3.3
 SpeechRecognition==3.10.3
 srsly==2.4.8
-starlette==0.27.0
+starlette==0.36.2
 sympy==1.12
 tensorboard==2.16.2
 tensorboard-data-server==0.7.2
